@@ -183,7 +183,6 @@ namespace SevenStrikeModules.XBinder.Editor
 
             #region 获取图标
             icon_main = XGUI.GetCustomIcon($"{XBinder_Dashboard.get_path_xbinder_gui()}gui_json_to_entity/icon_main");
-            Debug.Log($"{XBinder_Dashboard.get_path_xbinder_gui()}gui_json_to_entity/icon_main");
             #endregion
         }
         #endregion

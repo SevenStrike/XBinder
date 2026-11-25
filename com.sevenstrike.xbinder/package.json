@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "unity": "6000.0",
     "unityRelease": "38f1",
-    "description": "XBinder 是一套面向 Unity 的轻量级数据绑定框架：运行时数据统一汇入全局的键值容器总线，UI 通过单向、双向或多路适配器订阅指定 key，不必关心数据来源与刷新节奏。数据仅在真正发生变化时广播，数据源销毁或脚本重编译后适配器会自动重绑并回显当前值，原生支持 12 种数据类型，本地 JSON 与 HTTP 接口均可作为数据来源。",
+    "description": "XBinder 是一套面向 Unity 的轻量级数据绑定框架：运行时数据统一汇入全局的键值容器总线，UI 通过单向、双向或多路适配器订阅指定 key，不必关心数据来源与刷新节奏。数据仅在真正发生变化时广播，数据源销毁或脚本重编译后适配器会自动重绑并回显当前值，原生支持 12 种数据类型，本地 JSON 与 HTTP 接口均可作为数据来源。\n\n●  使用前需先安装界面绘制依赖 XGUI（com.sevenstrike.xgui），再安装本包，否则会因缺少该命名空间而编译失败。\n\nXGUI 依赖包：https://github.com/SevenStrike/XGUI.git?path=com.sevenstrike.xgui\n\n-------------------",
     "keywords": [
         "unity",
         "editor",
