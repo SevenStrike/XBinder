@@ -69,7 +69,7 @@ UI 控件（Text、Image、Slider、Toggle …）
 
 - `XBinder_Adapter_Base<T>` **单向只读**：绑定 → 订阅 → 初始值回显 → 断线重绑，四个抽象方法由子类实现
 - `XBinder_Adapter_Sync<T>` **双向回写**：`push(T)` 写回容器，`_syncing` 闸门拦截自身回环，杜绝“UI 改 → 数据变 → UI 再改”
-- `XBinder_Adapter_Multi` **多路批量**：一个组件订阅多个 key，`entries` 配置 + 按类型事件（`on_float` … `on_object`）分发；构建期自动校验空键、空容器与重复订阅并跳过
+- `XBinder_Adapter_Multi` **多路批量**：一个组件订阅多个 key，`entries` 配置 + 按类型事件（`on_float` … `on_rectoffset`，共 12 个）分发；构建期自动校验空键、空容器与重复订阅并跳过
 - 12 个叶子类型实现 `XBinder_Adapter_Sync_Float` / `_Int` / `_Bool` / `_String` / `_Color` / `_Vector2` / `_Vector3` / `_Vector4` / `_Quaternion` / `_Rect` / `_RectOffset` / `_Object`，挂到 Slider、Toggle、InputField 上即可用
 - 初始值推送：绑定成功立即回显；若绑定时数据源还没建好，`Update` 会兜底补推一次
 
@@ -304,7 +304,7 @@ public class name_text : XBinder_Adapter_Base<string>
 |:---|:---:|:---|:---|
 |`XBinder_Adapter_Base<T>`|数据 → UI|文本、图片、进度条等只读展示|`get_value()` / `on_value_changed(T)` / `subscribe()` / `unsubscribe()`|
 |`XBinder_Adapter_Sync<T>`|双向|Slider、Toggle、InputField|`push(T)` / `set_value(T)` / `act_on_value_changed`|
-|`XBinder_Adapter_Multi`|数据 → 业务层|一个组件吃多个 key、按类型分发|`entries` / `global_category` / `on_float` … `on_object`|
+|`XBinder_Adapter_Multi`|数据 → 业务层|一个组件吃多个 key、按类型分发|`entries` / `global_category` / `on_float` … `on_rectoffset`|
 
 **多路适配器的绑定项 `XBinder_Adapter_BindEntry`**
 
@@ -383,10 +383,9 @@ com.sevenstrike.xbinder/
 3. ⚡ **同名键不要跨类型写入**：同一个 key 同时写进 `float` 和 `string` 通道后，订阅 `float` 的一方永远读不到更新。Inspector 里“绑定的数据项”与“实际数据量”两个数字不相等，就是这种情况的信号。
 4. ⚡ **`target_category` 不带前缀**：填的是裸名字（如 `player`），总线上登记的才是 `xbinder_player`。
 5. ⚡ **回写必须走 `push()`**：`Sync` 适配器直接调 `set_value` 会绕开 `_syncing` 闸门，造成 UI 与数据互相触发。
-6. ⚡ **`Multi` 不支持 `RectOffset`**：枚举里有 `RectOffset`，但多路分发事件未覆盖该通道，需要时用 `Adapter_Sync_RectOffset` 或自定义。
-7. ⚡ **手动模式依赖旧版输入**：`request_key` 判断走 `Input.GetKeyDown`，项目若只启用新 Input System，需要在 Player Settings 里保留旧版输入或自行改写。
-8. ⚡ **数据源销毁后 UI 会短暂留白**：此时适配器处于解绑等待状态，重生后自动回填；不要在 `act_handle_category_destroyed` 里清空业务数据。
-9. ⚡ **版本信息同步维护**：`package.json` 的 `version` 与 `CHANGELOG.md` 保持一致，Package Manager 展示的是 `package.json` 的 `description`。
+6. ⚡ **手动模式依赖旧版输入**：`request_key` 判断走 `Input.GetKeyDown`，项目若只启用新 Input System，需要在 Player Settings 里保留旧版输入或自行改写。
+7. ⚡ **数据源销毁后 UI 会短暂留白**：此时适配器处于解绑等待状态，重生后自动回填；不要在 `act_handle_category_destroyed` 里清空业务数据。
+8. ⚡ **版本信息同步维护**：`package.json` 的 `version` 与 `CHANGELOG.md` 保持一致，Package Manager 展示的是 `package.json` 的 `description`。
 
 <br>
 
