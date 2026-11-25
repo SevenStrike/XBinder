@@ -21,8 +21,8 @@
 namespace SevenStrikeModules.XBinder.Example
 {
     using SevenStrikeModules.XBinder;
-    using UnityEngine.UI;
     using UnityEngine;
+    using UnityEngine.UI;
 
     /// <summary>
     /// 示例：本地系统状态面板的多路适配器。

@@ -104,6 +104,10 @@ namespace SevenStrikeModules.XBinder
         /// </summary>
         public event Action<string, Rect> on_rect;
         /// <summary>
+        /// RectOffset 数据事件，参数为（key, value）
+        /// </summary>
+        public event Action<string, RectOffset> on_rectoffset;
+        /// <summary>
         /// Object 数据事件，参数为（key, value）
         /// </summary>
         public event Action<string, object> on_object;
@@ -216,6 +220,11 @@ namespace SevenStrikeModules.XBinder
             public Action<Rect> cb_rect;
 
             /// <summary>
+            /// RectOffset 回调缓存
+            /// </summary>
+            public Action<RectOffset> cb_rectoffset;
+
+            /// <summary>
             /// Object 回调缓存
             /// </summary>
             public Action<object> cb_object;
@@ -317,6 +326,7 @@ namespace SevenStrikeModules.XBinder
                     case XBinder_ValueType.Vector4: item.cb_vector4 = v => on_vector4?.Invoke(cfg.target_key, v); break;
                     case XBinder_ValueType.Quaternion: item.cb_quaternion = v => on_quaternion?.Invoke(cfg.target_key, v); break;
                     case XBinder_ValueType.Rect: item.cb_rect = v => on_rect?.Invoke(cfg.target_key, v); break;
+                    case XBinder_ValueType.RectOffset: item.cb_rectoffset = v => on_rectoffset?.Invoke(cfg.target_key, v); break;
                     case XBinder_ValueType.Object: item.cb_object = v => on_object?.Invoke(cfg.target_key, v); break;
                 }
                 bind_items.Add(item);
@@ -440,6 +450,9 @@ namespace SevenStrikeModules.XBinder
                 case XBinder_ValueType.Rect:
                     item.category.subscribe_rect(item.cfg.target_key, item.cb_rect);
                     break;
+                case XBinder_ValueType.RectOffset:
+                    item.category.subscribe_rectoffset(item.cfg.target_key, item.cb_rectoffset);
+                    break;
                 case XBinder_ValueType.Object:
                     item.category.subscribe_object(item.cfg.target_key, item.cb_object);
                     break;
@@ -482,6 +495,9 @@ namespace SevenStrikeModules.XBinder
                     break;
                 case XBinder_ValueType.Rect:
                     item.category.unsubscribe_rect(item.cfg.target_key, item.cb_rect);
+                    break;
+                case XBinder_ValueType.RectOffset:
+                    item.category.unsubscribe_rectoffset(item.cfg.target_key, item.cb_rectoffset);
                     break;
                 case XBinder_ValueType.Object:
                     item.category.unsubscribe_object(item.cfg.target_key, item.cb_object);
