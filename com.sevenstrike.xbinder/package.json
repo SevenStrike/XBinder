@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "unity": "6000.0",
     "unityRelease": "38f1",
-    "description": "",
+    "description": "XBinder 是一套面向 Unity 的轻量级数据绑定框架：运行时数据统一汇入全局的键值容器总线，UI 通过单向、双向或多路适配器订阅指定 key，不必关心数据来源与刷新节奏。数据仅在真正发生变化时广播，数据源销毁或脚本重编译后适配器会自动重绑并回显当前值，原生支持 12 种数据类型，本地 JSON 与 HTTP 接口均可作为数据来源。",
     "keywords": [
         "unity",
         "editor",
@@ -23,7 +23,7 @@
     "samples": [
         {
             "displayName": "Demo",
-            "description": "",
+            "description": "内置两个演示场景。Local：本地轮询数据源驱动，用滑块实时控制风扇转速。Web：由 Node.js + Express + MySQL 搭建服务端，通过 GET/POST 加载器拉取数据，并演示双向绑定回写数据源。",
             "path": "Samples~"
         }
     ],
