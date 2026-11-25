@@ -8,6 +8,12 @@
 
 XBinder 是一套面向 Unity 的轻量级数据绑定框架。它把分散在各个脚本与组件里的运行时数据收拢到一条**数据总线**上：由数据源（`XBinder_Source`）统一创建容器、拉取并解析数据并写入，由适配器（`XBinder_Adapter_*`）统一订阅，UI 控件从此不必关心数据从哪里来、多久刷新一次，只声明“我要哪个 key”。数据变化时自动广播，写入相同值时直接短路，不产生多余的 UI 刷新；整条链路事件驱动，没有逐帧轮询。当数据源被销毁、或脚本重编译（Domain Reload）导致引用失效时，适配器通过总线事件自动重新绑定并回显当前值，不会留下断链。借助这套结构，本地 Json、HTTP 接口、数据库轮询都可以用同一套写法接进界面，更换数据来源无需改动 UI 层。
 
+<br>
+
+| 开源不易，您的支持是持续更新的动力，<br>这个小工具倾注了我无数个深夜的调试与优化，它永远免费，但绝非无成本，如果您觉得这个工具<br>能为您节省时间、解决问题，甚至带来一丝愉悦，请考虑赞助一杯咖啡，让我知道：有人在乎这份付出，而这将成为我熬夜修复Bug、<br>添加新功能的最大动力。开源不是用爱发电，您的认可会让它走得更远|![](Docs/donate.jpg) |
+|:-|-:|
+| **欢迎加入技术研讨群，在这里可以和我以及大家一起探讨插件的优化以及相关的技术实现思路，同时在做项目时遇到的众多问题以及瓶颈<br>阻碍都可以互相探讨学习**|![](Docs/qqgroups.jpg) |
+
 - **命名空间**：`SevenStrikeModules.XBinder`
 - **程序集**：`XBinder.Runtime`（运行时，引用 `XGUI.Runtime`）、`XBinder.Editor`（仅 Editor）
 - **前置依赖**：Inspector 面板与工具窗口由 XGUI 绘制，必须先安装 `com.sevenstrike.xgui`，否则会因缺少该命名空间而编译失败
@@ -23,6 +29,53 @@ XBinder 是一套面向 Unity 的轻量级数据绑定框架。它把分散在�
 | 在 `Update` 里每帧刷新文本、滑块、颜色 | 值变化才回调；值不变则整条链路无开销 |
 | 数据源销毁或脚本重编译后引用变空，UI 卡住 | 总线广播创建 / 销毁事件，适配器自动重绑并回显 |
 | 换数据来源（本地 Json → HTTP）要连 UI 代码一起改 | 只改 `XBinder_Source` 子类的 `request()`，UI 层不动 |
+
+<br>
+
+### 📦 安装
+---
+
+⚠️ **必须先装 XGUI**：XBinder 的 Inspector 与工具窗口完全由 XGUI 绘制，`XBinder.Runtime` 的程序集引用也指向 `XGUI.Runtime`。顺序反过来会先报缺命名空间的编译错误。
+
+### ▶️ 前置：安装 XGUI
+
+**Git 地址**
+
+```text
+https://github.com/SevenStrike/XGUI.git?path=com.sevenstrike.xgui
+```
+
+在 `Window > Package Manager` 中点左上角 `+` → `Add package from git URL...` 填入即可；也可以把这行写进 `Packages/manifest.json` 的 `dependencies`。
+
+### ▶️ 方式 A：从本地磁盘添加
+
+1. 打开 `Window > Package Manager`
+2. 点击左上角 `+`，选择 `Add package from disk...`
+3. 选择 `com.sevenstrike.xbinder/package.json`
+
+### ▶️ 方式 B：写入 `manifest.json`
+
+```json
+{
+  "dependencies": {
+    "com.sevenstrike.xbinder": "file:../com.sevenstrike.xbinder"
+  }
+}
+```
+
+### ▶️ 方式 C：通过 Git 安装（推荐）
+
+仓库地址：<https://github.com/SevenStrike/XBinder>。在 `Add package from git URL...` 中填入：
+
+```text
+https://github.com/SevenStrike/XBinder.git?path=com.sevenstrike.xbinder
+```
+
+需要锁版本时在末尾追加 `#tag`，例如 `#v1.0.0`。
+
+### ▶️ 方式 D：网络受限 / 无 Git 环境
+
+在浏览器打开仓库页面，`Code` → `Download ZIP`，解压后用 `Add package from disk...` 选择解压目录中的 `com.sevenstrike.xbinder/package.json`。这条路径完全不经过 Unity 内的 git，代价是不会随仓库自动升级。
 
 <br>
 
@@ -111,53 +164,6 @@ UI 控件（Text、Image、Slider、Toggle …）
 |**程序集**|`XBinder.Runtime`（引用 `XGUI.Runtime`）、`XBinder.Editor`|
 |**运行平台**|全部；编辑器面板与工具窗口仅 Editor|
 |**授权**|GNU AGPL-3.0|
-
-<br>
-
-### 📦 安装
----
-
-⚠️ **必须先装 XGUI**：XBinder 的 Inspector 与工具窗口完全由 XGUI 绘制，`XBinder.Runtime` 的程序集引用也指向 `XGUI.Runtime`。顺序反过来会先报缺命名空间的编译错误。
-
-### ▶️ 前置：安装 XGUI
-
-**Git 地址**
-
-```text
-https://github.com/SevenStrike/XGUI.git?path=com.sevenstrike.xgui
-```
-
-在 `Window > Package Manager` 中点左上角 `+` → `Add package from git URL...` 填入即可；也可以把这行写进 `Packages/manifest.json` 的 `dependencies`。
-
-### ▶️ 方式 A：从本地磁盘添加
-
-1. 打开 `Window > Package Manager`
-2. 点击左上角 `+`，选择 `Add package from disk...`
-3. 选择 `com.sevenstrike.xbinder/package.json`
-
-### ▶️ 方式 B：写入 `manifest.json`
-
-```json
-{
-  "dependencies": {
-    "com.sevenstrike.xbinder": "file:../com.sevenstrike.xbinder"
-  }
-}
-```
-
-### ▶️ 方式 C：通过 Git 安装（推荐）
-
-仓库地址：<https://github.com/SevenStrike/XBinder>。在 `Add package from git URL...` 中填入：
-
-```text
-https://github.com/SevenStrike/XBinder.git?path=com.sevenstrike.xbinder
-```
-
-需要锁版本时在末尾追加 `#tag`，例如 `#v1.0.0`。
-
-### ▶️ 方式 D：网络受限 / 无 Git 环境
-
-在浏览器打开仓库页面，`Code` → `Download ZIP`，解压后用 `Add package from disk...` 选择解压目录中的 `com.sevenstrike.xbinder/package.json`。这条路径完全不经过 Unity 内的 git，代价是不会随仓库自动升级。
 
 <br>
 
