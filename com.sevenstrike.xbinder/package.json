@@ -1,0 +1,35 @@
+{
+    "name": "com.sevenstrike.xbinder",
+    "displayName": "XBinder",
+    "version": "1.0.0",
+    "unity": "6000.0",
+    "unityRelease": "38f1",
+    "description": "",
+    "keywords": [
+        "unity",
+        "editor",
+        "gui",
+        "ui",
+        "tool",
+        "xbinder",
+        "extension",
+        "binder",
+        "bind"
+    ],
+    "author": {
+        "name": "SevenStrike",
+        "url": "http://sevenstrike.com/"
+    },
+    "samples": [
+        {
+            "displayName": "Demo",
+            "description": "",
+            "path": "Samples~"
+        }
+    ],
+    "license": "AGPL-3.0",
+    "licensesUrl": "https://www.gnu.org/licenses/agpl-3.0.html",
+    "documentationUrl": "https://github.com/SevenStrike/XBinder/blob/main/README.md",
+    "changelogUrl": "https://github.com/SevenStrike/XBinder/blob/main/com.sevenstrike.xbinder/CHANGELOG.md",
+    "dependencies": {}
+}
