@@ -26,6 +26,53 @@ XBinder 是一套面向 Unity 的轻量级数据绑定框架。它把分散在�
 
 <br>
 
+### 📦 安装
+---
+
+⚠️ **必须先装 XGUI**：XBinder 的 Inspector 与工具窗口完全由 XGUI 绘制，`XBinder.Runtime` 的程序集引用也指向 `XGUI.Runtime`。顺序反过来会先报缺命名空间的编译错误。
+
+### ▶️ 前置：安装 XGUI
+
+**Git 地址**
+
+```text
+https://github.com/SevenStrike/XGUI.git?path=com.sevenstrike.xgui
+```
+
+在 `Window > Package Manager` 中点左上角 `+` → `Add package from git URL...` 填入即可；也可以把这行写进 `Packages/manifest.json` 的 `dependencies`。
+
+### ▶️ 方式 A：从本地磁盘添加
+
+1. 打开 `Window > Package Manager`
+2. 点击左上角 `+`，选择 `Add package from disk...`
+3. 选择 `com.sevenstrike.xbinder/package.json`
+
+### ▶️ 方式 B：写入 `manifest.json`
+
+```json
+{
+  "dependencies": {
+    "com.sevenstrike.xbinder": "file:../com.sevenstrike.xbinder"
+  }
+}
+```
+
+### ▶️ 方式 C：通过 Git 安装（推荐）
+
+仓库地址：<https://github.com/SevenStrike/XBinder>。在 `Add package from git URL...` 中填入：
+
+```text
+https://github.com/SevenStrike/XBinder.git?path=com.sevenstrike.xbinder
+```
+
+需要锁版本时在末尾追加 `#tag`，例如 `#v1.0.0`。
+
+### ▶️ 方式 D：网络受限 / 无 Git 环境
+
+在浏览器打开仓库页面，`Code` → `Download ZIP`，解压后用 `Add package from disk...` 选择解压目录中的 `com.sevenstrike.xbinder/package.json`。这条路径完全不经过 Unity 内的 git，代价是不会随仓库自动升级。
+
+<br>
+
 ### 📦 数据流
 ---
 
@@ -111,53 +158,6 @@ UI 控件（Text、Image、Slider、Toggle …）
 |**程序集**|`XBinder.Runtime`（引用 `XGUI.Runtime`）、`XBinder.Editor`|
 |**运行平台**|全部；编辑器面板与工具窗口仅 Editor|
 |**授权**|GNU AGPL-3.0|
-
-<br>
-
-### 📦 安装
----
-
-⚠️ **必须先装 XGUI**：XBinder 的 Inspector 与工具窗口完全由 XGUI 绘制，`XBinder.Runtime` 的程序集引用也指向 `XGUI.Runtime`。顺序反过来会先报缺命名空间的编译错误。
-
-### ▶️ 前置：安装 XGUI
-
-**Git 地址**
-
-```text
-https://github.com/SevenStrike/XGUI.git?path=com.sevenstrike.xgui
-```
-
-在 `Window > Package Manager` 中点左上角 `+` → `Add package from git URL...` 填入即可；也可以把这行写进 `Packages/manifest.json` 的 `dependencies`。
-
-### ▶️ 方式 A：从本地磁盘添加
-
-1. 打开 `Window > Package Manager`
-2. 点击左上角 `+`，选择 `Add package from disk...`
-3. 选择 `com.sevenstrike.xbinder/package.json`
-
-### ▶️ 方式 B：写入 `manifest.json`
-
-```json
-{
-  "dependencies": {
-    "com.sevenstrike.xbinder": "file:../com.sevenstrike.xbinder"
-  }
-}
-```
-
-### ▶️ 方式 C：通过 Git 安装（推荐）
-
-仓库地址：<https://github.com/SevenStrike/XBinder>。在 `Add package from git URL...` 中填入：
-
-```text
-https://github.com/SevenStrike/XBinder.git?path=com.sevenstrike.xbinder
-```
-
-需要锁版本时在末尾追加 `#tag`，例如 `#v1.0.0`。
-
-### ▶️ 方式 D：网络受限 / 无 Git 环境
-
-在浏览器打开仓库页面，`Code` → `Download ZIP`，解压后用 `Add package from disk...` 选择解压目录中的 `com.sevenstrike.xbinder/package.json`。这条路径完全不经过 Unity 内的 git，代价是不会随仓库自动升级。
 
 <br>
 
