@@ -407,6 +407,9 @@ namespace SevenStrikeModules.XBinder
                 case XBinder_ValueType.Rect:
                     on_rect?.Invoke(item.cfg.target_key, item.category.get_rect(item.cfg.target_key));
                     break;
+                case XBinder_ValueType.RectOffset:
+                    on_rectoffset?.Invoke(item.cfg.target_key, item.category.get_rectoffset(item.cfg.target_key));
+                    break;
                 case XBinder_ValueType.Object:
                     on_object?.Invoke(item.cfg.target_key, item.category.get_object(item.cfg.target_key));
                     break;

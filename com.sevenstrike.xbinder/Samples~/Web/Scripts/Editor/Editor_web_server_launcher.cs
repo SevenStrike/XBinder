@@ -1,4 +1,4 @@
-﻿/*
+/*
  * ============================================================================
  * ⚠ 版权声明（禁止删除、禁止修改、衍生作品必须保留此注释）⚠
  * ============================================================================
@@ -29,15 +29,18 @@ namespace SevenStrikeModules.XBinder.Example.Editor
 
     public class Editor_web_server_launcher : EditorWindow
     {
-        // 你的 Node 项目相对路径（根据截图填写的）
-        private static string nodeProjectPath = $"Assets/Samples/XBinder/1.0.0/Demo/Web/Servers/NodeJS/Requester";
         private static string nodeEntryScript = "web_listener.js";
 
         [MenuItem("Tools/XBinder/网络数据源模拟服务")]
         public static void StartNodeServer()
         {
+            string nodeProjectPath_for_package = $"Assets/Samples/XBinder/1.0.0/Demo/Web/Servers/NodeJS/Requester";
+            string nodeProjectPath_for_assets = $"Assets/SevenStrikeModules/XBinder/Samples/Web/Servers/NodeJS/Requester";
+
             // 将 Unity 相对路径转为绝对路径
-            string absolutePath = Path.GetFullPath(nodeProjectPath);
+            string absolutePath = Path.GetFullPath(nodeProjectPath_for_package);
+            if (!Directory.Exists(absolutePath))
+                absolutePath = Path.GetFullPath(nodeProjectPath_for_assets);
 
             // 检查路径是否存在
             if (!Directory.Exists(absolutePath))

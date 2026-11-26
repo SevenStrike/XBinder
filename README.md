@@ -402,7 +402,7 @@ com.sevenstrike.xbinder/
 
 - 可自由使用、修改、分发源代码，但必须保留文件头部的版权注释
 - 基于本项目的衍生作品需同样以 AGPL-3.0 发布
-- 若以网络服务形式提供（如云端编辑器、在线数据工具），需公开修改后的完整源代码
+- 若以网络服务形式提供（如云端编辑器、在线动效工具），需公开修改后的完整源代码
 
 如需闭源商用或定制授权，请先与作者联系确认授权方式。完整协议文本：<https://www.gnu.org/licenses/agpl-3.0.html>
 
@@ -416,6 +416,8 @@ com.sevenstrike.xbinder/
 |作者|徐寅智（Isaac.Xu）|
 |团队|南京塞维斯传媒有限公司（SevenStrikeMedia）|
 |官网|<http://sevenstrike.com/>|
-|仓库|<https://github.com/SevenStrike/XBinder>|
+|邮箱|2110481973@qq.com / sevenstrike@sina.com|
+|技术群|【SEVEN STRIKE UNITY 实战技术】：https://qm.qq.com/q/wjN4vLPr6E|
+|仓库|<https://github.com/SevenStrike/XGUI>|
 |相关插件|XTween、XHUD、XGUI、XBinder、XGraph|
 |版权|Copyright (C) 2025-Present Nanjing SevenStrike Media Co., Ltd.|

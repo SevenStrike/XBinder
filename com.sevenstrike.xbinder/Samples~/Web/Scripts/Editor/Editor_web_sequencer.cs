@@ -105,7 +105,9 @@ namespace SevenStrikeModules.XBinder.Example.Editor
             #endregion
 
             #region 图标获取
-            icon_main = XGUI.GetCustomIcon($"Assets/Samples/XBinder/1.0.0/Demo/Web/GUI/gui_web_adapter_sync/icon_main");
+            icon_main = XGUI.GetCustomIcon($"Assets/Samples/XBinder/1.0.0/Demo/Web/GUI/gui_web_sequencer/icon_main");
+            if (icon_main == null)
+                icon_main = XGUI.GetCustomIcon($"Assets/SevenStrikeModules/XBinder/Samples/Web/GUI/gui_web_sequencer/icon_main");
             #endregion
         }
         public override void OnInspectorGUI()
