@@ -14,9 +14,28 @@ XBinder 是一套面向 Unity 的轻量级数据绑定框架。它把分散在�
 |:-|-:|
 | **欢迎加入技术研讨群，在这里可以和我以及大家一起探讨插件的优化以及相关的技术实现思路，同时在做项目时遇到的众多问题以及瓶颈<br>阻碍都可以互相探讨学习**|![](Docs/qqgroups.jpg) |
 
-- **命名空间**：`SevenStrikeModules.XBinder`
-- **程序集**：`XBinder.Runtime`（运行时，引用 `XGUI.Runtime`）、`XBinder.Editor`（仅 Editor）
-- **前置依赖**：Inspector 面板与工具窗口由 XGUI 绘制，必须先安装 `com.sevenstrike.xgui`，否则会因缺少该命名空间而编译失败
+- :bulb: **命名空间**：`SevenStrikeModules.XBinder`
+- :bulb: **程序集**：`XBinder.Runtime`（运行时，引用 `XGUI.Runtime`）、`XBinder.Editor`（仅 Editor）
+- :bulb: **前置依赖**：Inspector 面板与工具窗口由 XGUI 绘制，必须先安装 `com.sevenstrike.xgui`，否则会因缺少该命名空间而编译失败
+
+<br>
+
+### 📦 界面预览
+---
+
+<p align="center">
+  <img src="Docs/p_0.png" width="36%" alt="XGUI p_0.png">
+  <img src="Docs/p_1.png" width="36%" alt="XGUI p_1.png">
+</p>
+
+<p align="center">
+  <img src="Docs/p_2.png" width="36%" alt="XGUI p_2.png">
+  <img src="Docs/p_3.png" width="36%" alt="XGUI p_3.png">  
+</p>
+
+<p align="center">
+  <img src="Docs/p_4.png" width="80%" alt="XGUI p_4.png">  
+</p>
 
 <br>
 
@@ -35,7 +54,7 @@ XBinder 是一套面向 Unity 的轻量级数据绑定框架。它把分散在�
 ### 📦 安装
 ---
 
-⚠️ **必须先装 XGUI**：XBinder 的 Inspector 与工具窗口完全由 XGUI 绘制，`XBinder.Runtime` 的程序集引用也指向 `XGUI.Runtime`。顺序反过来会先报缺命名空间的编译错误。
+#### :warning: **必须先装 XGUI**：XBinder 的 Inspector 与工具窗口完全由 XGUI 绘制，`XBinder.Runtime` 的程序集引用也指向 `XGUI.Runtime`。顺序反过来会先报缺命名空间的编译错误。
 
 ### ▶️ 前置：安装 XGUI
 
@@ -46,6 +65,8 @@ https://github.com/SevenStrike/XGUI.git?path=com.sevenstrike.xgui
 ```
 
 在 `Window > Package Manager` 中点左上角 `+` → `Add package from git URL...` 填入即可；也可以把这行写进 `Packages/manifest.json` 的 `dependencies`。
+
+---
 
 ### ▶️ 方式 A：从本地磁盘添加
 
@@ -98,12 +119,12 @@ XBinder_Adapter_*（适配器 / MonoBehaviour）
 UI 控件（Text、Image、Slider、Toggle …）
 ```
 
-| 角色 | 类型 | 职责 |
-| :--- | :--- | :--- |
-| 数据总线 | `XBinder_Bus`（静态类） | 登记全部容器；`on_category_created` / `on_category_destroyed` 广播，是重连机制的根 |
-| 数据容器 | `XBinder_Category` | 12 条类型通道，`key → value` 存储 + 每 key 一份订阅者列表 |
-| 数据源 | `XBinder_Source`（MonoBehaviour） | `Awake` 建容器；按手动按键或定时间隔调 `request()`；解析后 `bind()` 写入 |
-| 适配器 | `XBinder_Adapter_Base<T>` / `_Sync<T>` / `_Multi` | 订阅、回写、多键批量；负责初始值回显与断线重连 |
+|角色|类型|职责|
+|:---|:---|:---|
+|🚀 数据总线 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|`XBinder_Bus`（静态类）|登记全部容器；`on_category_created` / `on_category_destroyed` 广播，是重连机制的根|
+|⚙️ 数据容器|`XBinder_Category`|12 条类型通道，`key → value` 存储 + 每 key 一份订阅者列表|
+|🔗 数据源|`XBinder_Source`（MonoBehaviour）|`Awake` 建容器；按手动按键或定时间隔调 `request()`；解析后 `bind()` 写入|
+|🧩 适配器|`XBinder_Adapter_Base<T>` / `_Sync<T>` / `_Multi`|订阅、回写、多键批量；负责初始值回显与断线重连|
 
 <br>
 
@@ -292,45 +313,45 @@ public class name_text : XBinder_Adapter_Base<string>
 每种类型都提供四个方法，命名后缀相同：`set_` / `get_` / `subscribe_` / `unsubscribe_`。
 
 |后缀|类型|`get_` 默认值|
-|:---|:---|:---|
-|`float`|`float`|`0f`|
-|`int`|`int`|`0`|
-|`bool`|`bool`|`false`|
-|`string`|`string`|`null`|
-|`color`|`Color`|`default`|
-|`vector2` / `vector3` / `vector4`|`Vector2` / `Vector3` / `Vector4`|`default`|
-|`quaternion`|`Quaternion`|`default`|
-|`rect`|`Rect`|`default`|
-|`rectoffset`|`RectOffset`|`default`（`null`）|
-|`object`|`object`|`null`|
+|:---|:---:|:---:|
+|🟨 **`float`**|`float`|`0f`|
+|🟨 **`int`**|`int`|`0`|
+|🟨 **`bool`**|`bool`|`false`|
+|🟨 **`string`**|`string`|`null`|
+|🟨 **`color`**|`Color`|`default`|
+|🟨 **`vector2`** / `vector3` / `vector4`|`Vector2` / `Vector3` / `Vector4`|`default`|
+|🟨 **`quaternion`**|`Quaternion`|`default`|
+|🟨 **`rect`**|`Rect`|`default`|
+|🟨 **`rectoffset`**|`RectOffset`|`default`（`null`）|
+|🟨 **`object`**|`object`|`null`|
 
 **三种适配器对比**
 
 |类型|方向|典型用途|关键 API|
 |:---|:---:|:---|:---|
-|`XBinder_Adapter_Base<T>`|数据 → UI|文本、图片、进度条等只读展示|`get_value()` / `on_value_changed(T)` / `subscribe()` / `unsubscribe()`|
-|`XBinder_Adapter_Sync<T>`|双向|Slider、Toggle、InputField|`push(T)` / `set_value(T)` / `act_on_value_changed`|
-|`XBinder_Adapter_Multi`|数据 → 业务层|一个组件吃多个 key、按类型分发|`entries` / `global_category` / `on_float` … `on_rectoffset`|
+|🎯 `XBinder_Adapter_Base<T>` &nbsp;&nbsp;&nbsp;&nbsp;|数据 → UI|文本、图片、进度条等只读展示|`get_value()` / `on_value_changed(T)` / `subscribe()` / `unsubscribe()`|
+|🎯 `XBinder_Adapter_Sync<T>`|双向|Slider、Toggle、InputField|`push(T)` / `set_value(T)` / `act_on_value_changed`|
+|🎯 `XBinder_Adapter_Multi`|数据 → 业务层|一个组件吃多个 key、按类型分发|`entries` / `global_category` / `on_float` … `on_rectoffset`|
 
 **多路适配器的绑定项 `XBinder_Adapter_BindEntry`**
 
 |字段|说明|
 |:---|:---|
-|`target_key`|订阅的键名|
-|`target_category`|容器名，留空则使用 `global_category`|
-|`value_type`|`XBinder_ValueType` 枚举，决定走哪条通道与哪个事件|
+|📌 `target_key`|订阅的键名|
+|📌 `target_category`|容器名，留空则使用 `global_category`|
+|📌 `value_type`|`XBinder_ValueType` 枚举，决定走哪条通道与哪个事件|
 
 <br>
 
 ### 📦 编辑器工具入口
 ---
 
-| 入口 | 位置 | 说明 |
-| :--- | :--- | :--- |
-| 数据源 Inspector | 选中挂有 `XBinder_Source` 子类组件的物体 | 快捷操作、参数、容器概览与多选批量编辑 |
-| 绑定总线查看器 | `Tools > XBinder > 绑定总线查看器` | 左右双栏、搜索、仅看有订阅者的键、虚拟滚动键表 |
-| Json 转 C# 实体 | `Tools > XBinder > Json 解析到 C# 实体类工具` | 选 `TextAsset` 生成 `[Serializable]` 实体类 |
-| 网络数据源模拟服务 | `Tools > XBinder > 网络数据源模拟服务` | 随 Web 示例提供，一键拉起本地 Node 服务 |
+|入口|位置|说明|
+|:---|:---|:---|
+|⚙️ 数据源 Inspector|选中挂有 `XBinder_Source` 子类组件的物体|快捷操作、参数、容器概览与多选批量编辑|
+|⚙️ 绑定总线查看器|`Tools > XBinder > 绑定总线查看器`|左右双栏、搜索、仅看有订阅者的键、虚拟滚动键表|
+|⚙️ Json 转 C# 实体|`Tools > XBinder > Json 解析到 C# 实体类工具`|选 `TextAsset` 生成 `[Serializable]` 实体类|
+|⚙️ 网络数据源模拟服务|`Tools > XBinder > 网络数据源模拟服务`|随 Web 示例提供，一键拉起本地 Node 服务|
 
 - ✅ 总线查看器会把选中的容器记在 `SessionState`，脚本重编译后自动恢复；左右栏宽度写入 `EditorPrefs`。
 
